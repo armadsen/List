@@ -16,9 +16,9 @@
 		157E2CA51CA07D4700FC38B5 /* ItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157E2CA01CA07D4700FC38B5 /* ItemsTableViewController.swift */; };
 		157E2CA61CA07D4700FC38B5 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157E2CA11CA07D4700FC38B5 /* ItemTableViewCell.swift */; };
 		157E2CA71CA07D4700FC38B5 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157E2CA21CA07D4700FC38B5 /* ItemViewController.swift */; };
-		157E2CAA1CA07D5800FC38B5 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157E2CA81CA07D5800FC38B5 /* Model.xcdatamodeld */; };
 		157E2CAC1CA07E0F00FC38B5 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157E2CAB1CA07E0F00FC38B5 /* Stack.swift */; };
 		157E2CAE1CA07E1500FC38B5 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157E2CAD1CA07E1500FC38B5 /* Item+CoreDataProperties.swift */; };
+		157E2CB71CA0812300FC38B5 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157E2CB51CA0812300FC38B5 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,9 +33,9 @@
 		157E2CA01CA07D4700FC38B5 /* ItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsTableViewController.swift; sourceTree = "<group>"; };
 		157E2CA11CA07D4700FC38B5 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		157E2CA21CA07D4700FC38B5 /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
-		157E2CA91CA07D5800FC38B5 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		157E2CAB1CA07E0F00FC38B5 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		157E2CAD1CA07E1500FC38B5 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		157E2CB61CA0812300FC38B5 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +77,7 @@
 				157E2CA11CA07D4700FC38B5 /* ItemTableViewCell.swift */,
 				157E2CA21CA07D4700FC38B5 /* ItemViewController.swift */,
 				157E2C9C1CA07D3800FC38B5 /* Main.storyboard */,
-				157E2CA81CA07D5800FC38B5 /* Model.xcdatamodeld */,
+				157E2CB51CA0812300FC38B5 /* Model.xcdatamodeld */,
 				1562ACA61CA07CC700606DBA /* Assets.xcassets */,
 				1562ACA81CA07CC700606DBA /* LaunchScreen.storyboard */,
 				1562ACAB1CA07CC700606DBA /* Info.plist */,
@@ -160,10 +160,10 @@
 				157E2CA31CA07D4700FC38B5 /* Item.swift in Sources */,
 				157E2CA41CA07D4700FC38B5 /* ItemController.swift in Sources */,
 				157E2CA61CA07D4700FC38B5 /* ItemTableViewCell.swift in Sources */,
-				157E2CAA1CA07D5800FC38B5 /* Model.xcdatamodeld in Sources */,
 				157E2CAC1CA07E0F00FC38B5 /* Stack.swift in Sources */,
 				157E2CA51CA07D4700FC38B5 /* ItemsTableViewController.swift in Sources */,
 				157E2CAE1CA07E1500FC38B5 /* Item+CoreDataProperties.swift in Sources */,
+				157E2CB71CA0812300FC38B5 /* Model.xcdatamodeld in Sources */,
 				1562ACA01CA07CC700606DBA /* AppDelegate.swift in Sources */,
 				157E2CA71CA07D4700FC38B5 /* ItemViewController.swift in Sources */,
 			);
@@ -312,14 +312,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		157E2CA81CA07D5800FC38B5 /* Model.xcdatamodeld */ = {
+		157E2CB51CA0812300FC38B5 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				157E2CA91CA07D5800FC38B5 /* Model.xcdatamodel */,
+				157E2CB61CA0812300FC38B5 /* Model.xcdatamodel */,
 			);
-			currentVersion = 157E2CA91CA07D5800FC38B5 /* Model.xcdatamodel */;
-			name = Model.xcdatamodeld;
-			path = ../Model.xcdatamodeld;
+			currentVersion = 157E2CB61CA0812300FC38B5 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
