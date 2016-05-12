@@ -68,14 +68,14 @@
 		1562AC9E1CA07CC700606DBA /* List */ = {
 			isa = PBXGroup;
 			children = (
-				157E2CAB1CA07E0F00FC38B5 /* Stack.swift */,
-				157E2CAD1CA07E1500FC38B5 /* Item+CoreDataProperties.swift */,
-				1562AC9F1CA07CC700606DBA /* AppDelegate.swift */,
 				157E2C9E1CA07D4700FC38B5 /* Item.swift */,
+				157E2CAD1CA07E1500FC38B5 /* Item+CoreDataProperties.swift */,
 				157E2C9F1CA07D4700FC38B5 /* ItemController.swift */,
 				157E2CA01CA07D4700FC38B5 /* ItemsTableViewController.swift */,
 				157E2CA11CA07D4700FC38B5 /* ItemTableViewCell.swift */,
 				157E2CA21CA07D4700FC38B5 /* ItemViewController.swift */,
+				157E2CAB1CA07E0F00FC38B5 /* Stack.swift */,
+				1562AC9F1CA07CC700606DBA /* AppDelegate.swift */,
 				157E2C9C1CA07D3800FC38B5 /* Main.storyboard */,
 				157E2CB51CA0812300FC38B5 /* Model.xcdatamodeld */,
 				1562ACA61CA07CC700606DBA /* Assets.xcassets */,
