@@ -16,15 +16,32 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         
         // Use provided edit button
         navigationItem.leftBarButtonItem = editButtonItem()
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewDidAppear(true)
+//        super.viewDidAppear(true)
         
         tableView.reloadData()
+    
+    }
+
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        // Launch instructions
+        let launchedBefore = NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore")
+        let vc = WelcomeViewController()
+        
+        if launchedBefore  {
+            print("Not first launch.")
+        }
+        else {
+            print("First launch, setting NSUserDefault.")
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
     }
 
 
