@@ -12,6 +12,7 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var imageImageView: UIImageView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     var item: Item?
@@ -51,6 +52,16 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         checkValidItemNames()
         // Set the Nav title as the title text entered
         navigationItem.title = titleTextField.text
+        
+        // Get and set the image
+        print("Beginning to get/set the image")
+        if let checkedURL = NSURL(string: "http://www.apple.com/euro/ios/ios8/a/generic/images/og.png") {
+            imageImageView.contentMode = .ScaleAspectFit
+            downloadImage(checkedURL)
+        }
+        
+        print("End of code, the image will continue downloading in the background and it will be loaded when it ends.")
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func checkValidItemNames() {
@@ -61,6 +72,31 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         saveButton.enabled = !url.isEmpty
 
     }
+    
+    
+    // MARK: - Get image for Thumbnail
+    
+    // Get the data from the url
+    func getDataFromUrl(url: NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError?) -> Void)) {
+        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
+            completion(data: data, response: response, error: error)
+        }.resume()
+    }
+    
+    // Download the image
+    func downloadImage(url: NSURL) {
+        print("Download started")
+        print("lastPathComponent: " + (url.lastPathComponent ?? ""))
+        getDataFromUrl(url) { (data, response, error) in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                guard let data = data where error == nil else { return }
+                print(response?.suggestedFilename ?? "")
+                print("Download finished")
+                self.imageImageView.image = UIImage(data: data)
+            })
+        }
+    }
+    
     
     // MARK: - Navigation
     
@@ -76,8 +112,6 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
             ItemController.sharedController.addItem(newItem)
             self.item = newItem
         }
-    
-        dismissViewControllerAnimated(true, completion: nil)
         
     }
 }

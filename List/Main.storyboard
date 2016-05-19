@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lgF-r0-5yr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KoL-dK-wEN">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -157,16 +157,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="HHE-On-ofA">
+                                <rect key="frame" x="20" y="94" width="72" height="72"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="i3x-yu-kf9"/>
+                                    <constraint firstAttribute="height" constant="72" id="ncD-El-AKZ"/>
+                                </constraints>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="9Vv-Sp-Rhm">
-                                <rect key="frame" x="20" y="124" width="560" height="72"/>
+                                <rect key="frame" x="100" y="94" width="480" height="72"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="560" placeholderIntrinsicHeight="30" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gaI-0L-cbv">
-                                        <rect key="frame" x="0.0" y="0.0" width="560" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="30" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gaI-0L-cbv">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="560" placeholderIntrinsicHeight="30" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NRU-H5-jAE">
-                                        <rect key="frame" x="0.0" y="42" width="560" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="30" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter URL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NRU-H5-jAE">
+                                        <rect key="frame" x="0.0" y="42" width="480" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="no" keyboardType="URL" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
@@ -181,10 +189,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="HHE-On-ofA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="3H6-ME-A98"/>
                             <constraint firstItem="9Vv-Sp-Rhm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="43R-Gy-T5V"/>
+                            <constraint firstItem="9Vv-Sp-Rhm" firstAttribute="leading" secondItem="HHE-On-ofA" secondAttribute="leading" constant="8" id="8ff-WH-sv1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9Vv-Sp-Rhm" secondAttribute="trailing" id="ITe-bK-a7K"/>
-                            <constraint firstItem="9Vv-Sp-Rhm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="60" id="KmC-pF-Paa"/>
+                            <constraint firstItem="9Vv-Sp-Rhm" firstAttribute="leading" secondItem="HHE-On-ofA" secondAttribute="trailing" constant="8" id="Iwu-IO-5T5"/>
+                            <constraint firstItem="9Vv-Sp-Rhm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="KmC-pF-Paa"/>
+                            <constraint firstItem="HHE-On-ofA" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="Uax-iQ-XXd"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="43R-Gy-T5V"/>
+                                <exclude reference="8ff-WH-sv1"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="New Item" id="nBb-Vu-Inm">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="the-3n-T0T">
@@ -199,6 +217,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="imageImageView" destination="HHE-On-ofA" id="4Hv-KK-FwJ"/>
                         <outlet property="saveButton" destination="W9q-1g-4Aj" id="mLU-un-lzQ"/>
                         <outlet property="titleTextField" destination="gaI-0L-cbv" id="Ipz-fP-PmR"/>
                         <outlet property="urlTextField" destination="NRU-H5-jAE" id="gCZ-Ux-6fq"/>
@@ -246,6 +265,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="defaultImage" width="150" height="150"/>
         <image name="screenshot" width="487" height="338"/>
     </resources>
 </document>
