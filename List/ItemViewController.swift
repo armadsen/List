@@ -59,14 +59,14 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
             print("Beginning to get/set the image")
             
             // Pull the URL and apply filter for favicon
-            let faviconURL = String("http://www.google.com/s2/favicons?domain=www." + urlText)
-            
+            // let faviconURL = String("http://www.google.com/s2/favicons?domain=www." + urlText)
+            let faviconURL = String("http://" + urlText + "/favicon.ico")
             if let checkedURL = NSURL(string: faviconURL) {
                 imageImageView.contentMode = .ScaleAspectFit
                 downloadImage(checkedURL)
             }
-            print("End of code, the image will continue downloading in the background and it will be loaded when it ends.")
         }
+        print("End of code, the image will continue downloading in the background and it will be loaded when it ends.")
     }
     
     func checkValidItemNames() {
@@ -98,7 +98,11 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
                 guard let data = data where error == nil else { return }
                 print(response?.suggestedFilename ?? "")
                 print("Download finished")
-                self.imageImageView.image = UIImage(data: data)
+                if UIImage(data: data) != nil {
+                    self.imageImageView.image = UIImage(data: data)
+                } else {
+                    self.imageImageView.image = UIImage(named: "blankPage")
+                }
             })
         }
     }
