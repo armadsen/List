@@ -58,7 +58,13 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         
         cell.titleLabel.text = item.title
         cell.urlLabel.text = item.url
-
+        
+        if let image = UIImage(data: item.image!) {
+            cell.imageIcon.image = image
+        } else {
+            cell.imageIcon.image = UIImage(named: "Icon-Small@2x")
+        }
+        
         return cell
     }
 

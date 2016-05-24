@@ -58,7 +58,10 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
             
             print("Beginning to get/set the image")
             
-            if let checkedURL = NSURL(string: urlText) {
+            // Pull the URL and apply filter for favicon
+            let faviconURL = String("http://www.google.com/s2/favicons?domain=www." + urlText)
+            
+            if let checkedURL = NSURL(string: faviconURL) {
                 imageImageView.contentMode = .ScaleAspectFit
                 downloadImage(checkedURL)
             }
@@ -110,12 +113,29 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     @IBAction func saveButtonTapped(ender: UIBarButtonItem) {
         
         // What happens if there is no text here? Well, the above methods prevent it, I think
-        if let title = self.titleTextField.text, url = self.urlTextField.text {
-            let newItem = Item(title: title, url: url)
+        if let title = self.titleTextField.text, url = self.urlTextField.text, let image = self.imageImageView.image {
+           
+            let imageData = NSData(data: UIImageJPEGRepresentation(image, 1.0)!)
+            
+            let newItem = Item(title: title, url: url, image: imageData)
             ItemController.sharedController.addItem(newItem)
             self.item = newItem
             dismissViewControllerAnimated(true, completion: nil)
         }
+        
+        /* OLD, Partial method
+        
+        if let image = self.imageImageView.image {
+            let imageData = NSData(data: UIImageJPEGRepresentation(image, 1.0)!)
+        }
+        if let title = self.titleTextField.text, url = self.urlTextField.text, image = imageData {
+            let newItem = Item(title: title, url: url, image: image)
+            ItemController.sharedController.addItem(newItem)
+            self.item = newItem
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+ 
+        */
         
     }
 }
