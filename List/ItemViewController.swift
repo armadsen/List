@@ -54,20 +54,23 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         navigationItem.title = titleTextField.text
         
         // Get and set the image
-        print("Beginning to get/set the image")
-        if let checkedURL = NSURL(string: "http://www.apple.com/euro/ios/ios8/a/generic/images/og.png") {
-            imageImageView.contentMode = .ScaleAspectFit
-            downloadImage(checkedURL)
+        if let urlText = textField.text where textField === urlTextField {
+            
+            print("Beginning to get/set the image")
+            
+            if let checkedURL = NSURL(string: urlText) {
+                imageImageView.contentMode = .ScaleAspectFit
+                downloadImage(checkedURL)
+            }
+            print("End of code, the image will continue downloading in the background and it will be loaded when it ends.")
         }
-        
-        print("End of code, the image will continue downloading in the background and it will be loaded when it ends.")
-        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func checkValidItemNames() {
         // Disable the Save button if either the text field or url is empty.
         let text = titleTextField.text ?? ""
         let url = urlTextField.text ?? ""
+        // Check this**
         saveButton.enabled = !text.isEmpty
         saveButton.enabled = !url.isEmpty
 
@@ -111,6 +114,7 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
             let newItem = Item(title: title, url: url)
             ItemController.sharedController.addItem(newItem)
             self.item = newItem
+            dismissViewControllerAnimated(true, completion: nil)
         }
         
     }

@@ -14,33 +14,32 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Use provided edit button
         navigationItem.leftBarButtonItem = editButtonItem()
         
     }
     
     override func viewWillAppear(animated: Bool) {
-//        super.viewDidAppear(true)
+        super.viewWillAppear(animated)
         
         tableView.reloadData()
     
     }
 
-    
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
         
         // Launch instructions
         let launchedBefore = NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore")
-        let vc = WelcomeViewController()
         
         if launchedBefore  {
             print("Not first launch.")
         }
         else {
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("welcome")
             print("First launch, setting NSUserDefault.")
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
-            self.presentViewController(vc, animated: true, completion: nil)
+            presentViewController(vc, animated: true, completion: nil)
         }
     }
 
@@ -66,7 +65,6 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
 
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
 
