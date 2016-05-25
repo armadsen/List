@@ -23,11 +23,8 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Handle the text field user input through delegate callbacks
         titleTextField.delegate = self
         urlTextField.delegate = self
-        
-        saveButton.enabled = false
         
         // Jump directly into titleTextField when ItemView loads
         titleTextField.becomeFirstResponder()
@@ -37,6 +34,7 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     override func viewWillDisappear(animated: Bool) {
         self.view .endEditing(true)
     }
+    
     
     // MARK: - UITextFieldDelegate
     
@@ -53,28 +51,17 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(textField: UITextField) {
         
-        // Set the Nav title as the title text entered
-        navigationItem.title = titleTextField.text
+        checkValidTitle()
         
         // Get and set the image
         if let urlText = textField.text where textField === urlTextField {
             
-            
-            saveButton.enabled = true
-            /*
-            saveButton.enabled = verifyUrl(urlText)
-            print("Is save button enabled #1? \(saveButton.enabled)")
-            
-            if !urlText.isEmpty && verifyUrl(urlText) {
-                saveButton.enabled = true
-                print("Is save button enabled #2? \(saveButton.enabled)")
-            }
-            */
+//            saveButton.enabled = verifyUrl(urlText)
+            checkValidUrl()
             
             print("Beginning to get/set the image")
             
             // Pull the URL and apply filter for favicon
-            
             let iconChoice1 = "http://" + urlText + "/apple-touch-icon.png"
             let iconChoice2 = "http://" + urlText + "/favicon-196x196.png"
             let iconChoice3 = "http://" + urlText + "/favicon.ico"
@@ -101,16 +88,6 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
                     print("\(urlText) used option #4")
                 }
             }
-            
-            /*
-            if verifyUrl(iconChoice1) {
-                faviconURL = iconChoice1
-            } else if verifyUrl(iconChoice2) {
-                faviconURL = iconChoice2
-            } else {
-                faviconURL = iconChoice3
-            }
-            */
         
             if let checkedURL = NSURL(string: faviconURL) {
                 imageImageView.contentMode = .ScaleAspectFit
@@ -119,13 +96,6 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
             print("End of code, the image will continue downloading in the background and it will be loaded when it ends.")
         }
     }
-    
-//    func checkValidItemNames() {
-//        // Disable the Save button if the text field
-//        let text = titleTextField.text ?? ""
-//        saveButton.enabled = !text.isEmpty
-//    }
-    
     
     // MARK: - Get image for Thumbnail
     
@@ -173,23 +143,36 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
             self.item = newItem
             dismissViewControllerAnimated(true, completion: nil)
         }
-        
-        /* OLD, Partial method
-         
-         if let image = self.imageImageView.image {
-         let imageData = NSData(data: UIImageJPEGRepresentation(image, 1.0)!)
-         }
-         if let title = self.titleTextField.text, url = self.urlTextField.text, image = imageData {
-         let newItem = Item(title: title, url: url, image: image)
-         ItemController.sharedController.addItem(newItem)
-         self.item = newItem
-         dismissViewControllerAnimated(true, completion: nil)
-         }
-         
-         */
-        
     }
-   
+    
+    
+    // MARK: - Data validation
+    
+    // Disable the Save button if the text field is empty
+    func checkValidTitle() {
+        let text = titleTextField.text ?? ""
+        saveButton.enabled = !text.isEmpty
+        if text.isEmpty {
+            messageTextLabel.text = "Please enter a title"
+        } else {
+            // Set the Nav title as the title text entered
+            navigationItem.title = titleTextField.text
+            messageTextLabel.text = ""
+        }
+    }
+    
+    // Disable the Save button if the url field is empty
+    func checkValidUrl() {
+        let text = urlTextField.text ?? ""
+        saveButton.enabled = !text.isEmpty
+        if text.isEmpty {
+            messageTextLabel.text = "Please enter a url"
+        } else {
+            messageTextLabel.text = ""
+        }
+    }
+
+    /*
     // Verify the Url
     func verifyUrl (urlString: String?) -> Bool {
         // Check for nil
@@ -208,6 +191,6 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         }
         return false
     }
+    */
     
 }
-
