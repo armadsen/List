@@ -9,11 +9,14 @@
 import UIKit
 
 class ItemViewController: UIViewController, UITextFieldDelegate {
-
+    
+    var faviconURL = ""
+    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var imageImageView: UIImageView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var messageTextLabel: UILabel!
     
     var item: Item?
     
@@ -24,7 +27,7 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         titleTextField.delegate = self
         urlTextField.delegate = self
         
-        checkValidItemNames()
+        saveButton.enabled = false
         
         // Jump directly into titleTextField when ItemView loads
         titleTextField.becomeFirstResponder()
@@ -49,35 +52,79 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        checkValidItemNames()
+        
         // Set the Nav title as the title text entered
         navigationItem.title = titleTextField.text
         
         // Get and set the image
         if let urlText = textField.text where textField === urlTextField {
             
+            
+            saveButton.enabled = true
+            /*
+            saveButton.enabled = verifyUrl(urlText)
+            print("Is save button enabled #1? \(saveButton.enabled)")
+            
+            if !urlText.isEmpty && verifyUrl(urlText) {
+                saveButton.enabled = true
+                print("Is save button enabled #2? \(saveButton.enabled)")
+            }
+            */
+            
             print("Beginning to get/set the image")
             
             // Pull the URL and apply filter for favicon
-            // let faviconURL = String("http://www.google.com/s2/favicons?domain=www." + urlText)
-            let faviconURL = String("http://" + urlText + "/favicon.ico")
+            
+            let iconChoice1 = "http://" + urlText + "/apple-touch-icon.png"
+            let iconChoice2 = "http://" + urlText + "/favicon-196x196.png"
+            let iconChoice3 = "http://" + urlText + "/favicon.ico"
+            let iconChoice4 = "http://www.google.com/s2/favicons?domain=" + urlText
+            
+            if let data = NSData(contentsOfURL: NSURL(string: iconChoice1)!) {
+                if UIImage(data: data) != nil {
+                    faviconURL = iconChoice1
+                    print("\(urlText) used option #1")
+                }
+            } else if let data = NSData(contentsOfURL: NSURL(string: iconChoice2)!) {
+                if UIImage(data: data) != nil {
+                    faviconURL = iconChoice2
+                    print("\(urlText) used option #2")
+                }
+            } else if let data = NSData(contentsOfURL: NSURL(string: iconChoice3)!) {
+                if UIImage(data: data) != nil {
+                    faviconURL = iconChoice3
+                    print("\(urlText) used option #3")
+                }
+            } else if let data = NSData(contentsOfURL: NSURL(string: iconChoice4)!) {
+                if UIImage(data: data) != nil {
+                    faviconURL = iconChoice4
+                    print("\(urlText) used option #4")
+                }
+            }
+            
+            /*
+            if verifyUrl(iconChoice1) {
+                faviconURL = iconChoice1
+            } else if verifyUrl(iconChoice2) {
+                faviconURL = iconChoice2
+            } else {
+                faviconURL = iconChoice3
+            }
+            */
+        
             if let checkedURL = NSURL(string: faviconURL) {
                 imageImageView.contentMode = .ScaleAspectFit
                 downloadImage(checkedURL)
             }
+            print("End of code, the image will continue downloading in the background and it will be loaded when it ends.")
         }
-        print("End of code, the image will continue downloading in the background and it will be loaded when it ends.")
     }
     
-    func checkValidItemNames() {
-        // Disable the Save button if either the text field or url is empty.
-        let text = titleTextField.text ?? ""
-        let url = urlTextField.text ?? ""
-        // Check this**
-        saveButton.enabled = !text.isEmpty
-        saveButton.enabled = !url.isEmpty
-
-    }
+//    func checkValidItemNames() {
+//        // Disable the Save button if the text field
+//        let text = titleTextField.text ?? ""
+//        saveButton.enabled = !text.isEmpty
+//    }
     
     
     // MARK: - Get image for Thumbnail
@@ -86,7 +133,7 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     func getDataFromUrl(url: NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError?) -> Void)) {
         NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
             completion(data: data, response: response, error: error)
-        }.resume()
+            }.resume()
     }
     
     // Download the image
@@ -118,7 +165,7 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         
         // What happens if there is no text here? Well, the above methods prevent it, I think
         if let title = self.titleTextField.text, url = self.urlTextField.text, let image = self.imageImageView.image {
-           
+            
             let imageData = NSData(data: UIImageJPEGRepresentation(image, 1.0)!)
             
             let newItem = Item(title: title, url: url, image: imageData)
@@ -128,19 +175,39 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         }
         
         /* OLD, Partial method
-        
-        if let image = self.imageImageView.image {
-            let imageData = NSData(data: UIImageJPEGRepresentation(image, 1.0)!)
-        }
-        if let title = self.titleTextField.text, url = self.urlTextField.text, image = imageData {
-            let newItem = Item(title: title, url: url, image: image)
-            ItemController.sharedController.addItem(newItem)
-            self.item = newItem
-            dismissViewControllerAnimated(true, completion: nil)
-        }
- 
-        */
+         
+         if let image = self.imageImageView.image {
+         let imageData = NSData(data: UIImageJPEGRepresentation(image, 1.0)!)
+         }
+         if let title = self.titleTextField.text, url = self.urlTextField.text, image = imageData {
+         let newItem = Item(title: title, url: url, image: image)
+         ItemController.sharedController.addItem(newItem)
+         self.item = newItem
+         dismissViewControllerAnimated(true, completion: nil)
+         }
+         
+         */
         
     }
+   
+    // Verify the Url
+    func verifyUrl (urlString: String?) -> Bool {
+        // Check for nil
+        if let urlString = urlString {
+            // Create NSURL
+            if let url = NSURL(string: urlString) {
+                // Check if can open the NSURL
+                if UIApplication.sharedApplication().canOpenURL(url) == true {
+                    messageTextLabel.text = ""
+                    return true
+                } else {
+                    messageTextLabel.text = "Please enter a valid URL"
+                    return false
+                }
+            }
+        }
+        return false
+    }
+    
 }
 
