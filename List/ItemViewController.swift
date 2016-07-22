@@ -62,10 +62,22 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
             print("Beginning to get/set the image")
             
             // Pull the URL and apply filter for favicon
-            let iconChoice1 = "http://" + urlText + "/apple-touch-icon.png"
-            let iconChoice2 = "http://" + urlText + "/favicon-196x196.png"
-            let iconChoice3 = "http://" + urlText + "/favicon.ico"
-            let iconChoice4 = "http://www.google.com/s2/favicons?domain=" + urlText
+            
+            // Original Method
+             let iconChoice1 = "http://" + urlText + "/apple-touch-icon.png"
+             let iconChoice2 = "http://" + urlText + "/favicon-196x196.png"
+             let iconChoice3 = "http://" + urlText + "/favicon.ico"
+             let iconChoice4 = "http://www.google.com/s2/favicons?domain=" + urlText
+            
+            /*
+             This thing would default to blank text, but if the apple touch icon isn't available, it would default to the first letter of the title
+             
+             if let iconChoice1 = "http://" + urlText + "/apple-touch-icon.png" {
+                text = "" } else {
+                    text = The first letter of the Title string}
+             
+             Then must adapt Core Data to not save an image, but to save the details of the text if their is no image... and use that instead of the image. So it would check for the image, and if the image is there, use it, else use the details of the text.
+            */
             
             if let data = NSData(contentsOfURL: NSURL(string: iconChoice1)!) {
                 if UIImage(data: data) != nil {
@@ -118,7 +130,7 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
                 if UIImage(data: data) != nil {
                     self.imageImageView.image = UIImage(data: data)
                 } else {
-                    self.imageImageView.image = UIImage(named: "blankPage")
+                    self.imageImageView.image = UIImage(named: "bookmark")
                 }
             })
         }
