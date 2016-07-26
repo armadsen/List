@@ -65,9 +65,8 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
             
             // Original Method
              let iconChoice1 = "http://" + urlText + "/apple-touch-icon.png"
-             let iconChoice2 = "http://" + urlText + "/favicon-196x196.png"
-             let iconChoice3 = "http://" + urlText + "/favicon.ico"
-             let iconChoice4 = "http://www.google.com/s2/favicons?domain=" + urlText
+             let iconChoice2 = "http://" + urlText + "/favicon.ico"
+             let iconChoice3 = "http://www.google.com/s2/favicons?domain=" + urlText
             
             /*
              This thing would default to blank text, but if the apple touch icon isn't available, it would default to the first letter of the title
@@ -93,11 +92,6 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
                 if UIImage(data: data) != nil {
                     faviconURL = iconChoice3
                     print("\(urlText) used option #3")
-                }
-            } else if let data = NSData(contentsOfURL: NSURL(string: iconChoice4)!) {
-                if UIImage(data: data) != nil {
-                    faviconURL = iconChoice4
-                    print("\(urlText) used option #4")
                 }
             }
         
