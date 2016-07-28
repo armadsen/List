@@ -12,7 +12,7 @@ import CoreData
 
 class Item: NSManagedObject {
 
-    convenience init(title: String, url: String, image: NSData, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(title: String, url: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
         
         let entity = NSEntityDescription.entityForName("Item", inManagedObjectContext: context)!
         
@@ -20,6 +20,5 @@ class Item: NSManagedObject {
         
         self.title = title
         self.url = url
-        self.image = image
     }
 }

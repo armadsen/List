@@ -16,7 +16,6 @@ extension Item {
 
     @NSManaged var title: String?
     @NSManaged var url: String?
-    @NSManaged var image: NSData?
     @NSManaged var toList: NSManagedObject?
 
 }

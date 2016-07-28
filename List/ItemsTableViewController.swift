@@ -18,6 +18,7 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
         tableView.reloadData()
     }
     
@@ -37,6 +38,7 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
             presentViewController(vc, animated: true, completion: nil)
         }
+
     }
     
     
@@ -54,7 +56,9 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         
         cell.titleLabel.text = item.title
         cell.urlLabel.text = item.url
-        cell.imageIcon.image = UIImage(data: item.image!)
+        if let bigLetter = item.title?.characters.first {
+            cell.bigLetterLabel.text = String(bigLetter)
+        }
         
         return cell
     }
