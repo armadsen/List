@@ -38,9 +38,8 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
             presentViewController(vc, animated: true, completion: nil)
         }
-
+        
     }
-    
     
     
     // MARK: - Table view data source
@@ -56,11 +55,70 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         
         cell.titleLabel.text = item.title
         cell.urlLabel.text = item.url
+        
+        
+        // Calculate color gradient
+        
+        // Set the color values (either here or up top) RED: [255, 69, 0] ORANGE: [255, 20, 147]
+        let colorTopValues: [CGFloat] = [30, 19, 50]
+        let colorBottomValues: [CGFloat] = [88, 25, 140]
+        
+        // Take 2 values, find out which one is lower
+        let topRedValue = colorTopValues[0]
+        let bottomRedValue = colorBottomValues[0]
+        let topBlueValue = colorTopValues[1]
+        let bottomBlueValue = colorBottomValues[1]
+        let topGreenValue = colorTopValues[2]
+        let bottomGreenValue = colorBottomValues[2]
+        
+        let lowerRed = whichNumberIsLower(topRedValue, secondValue: bottomRedValue)
+        let lowerBlue = whichNumberIsLower(topBlueValue, secondValue: bottomBlueValue)
+        let lowerGreen = whichNumberIsLower(topGreenValue, secondValue: bottomGreenValue)
+        
+        // Subtract the two and find the absolute value to get the difference.
+        let differenceRed = fabs(topRedValue - bottomRedValue)
+        let differenceBlue = fabs(topBlueValue - bottomBlueValue)
+        let differenceGreen = fabs(topGreenValue - bottomGreenValue)
+        
+        // Divide that difference by (the number of items in the list - 1)
+        // Add (that value * the cellRow) to the lower of the two values and divide by 255
+        var divisor: CGFloat = 1
+        let numberOfItems = ItemController.sharedController.items.count
+        if numberOfItems > 1 {
+            divisor = CGFloat(numberOfItems - 1)
+        }
+        
+        let newRedValue = (lowerRed + CGFloat(indexPath.row) * (differenceRed / divisor)) / 255
+        let newBlueValue = (lowerBlue + CGFloat(indexPath.row) * (differenceBlue / divisor)) / 255
+        let newGreenValue = (lowerGreen + CGFloat(indexPath.row) * (differenceGreen / divisor)) / 255
+
+        // That value will be the new value that needs to be the RGB value to use
+        print("Cell: \(indexPath.row)")
+        print("newRed: \(newRedValue)")
+        print("newRed: \(newBlueValue)")
+        print("newRed: \(newGreenValue)")
+        
+        // Set the cell bg color equal to the new RGB value
+        cell.coloredBoxView.backgroundColor = UIColor(red: newRedValue, green: newGreenValue, blue: newBlueValue, alpha: 1)
+        
         if let bigLetter = item.title?.characters.first {
             cell.bigLetterLabel.text = String(bigLetter)
         }
         
         return cell
+    }
+    
+    
+    func whichNumberIsLower(firstValue: CGFloat, secondValue: CGFloat) -> CGFloat {
+        var lowerNumber: CGFloat = 0
+
+        if firstValue >= secondValue {
+            lowerNumber = secondValue
+        } else {
+            lowerNumber = firstValue
+        }
+        
+        return lowerNumber
     }
     
     
