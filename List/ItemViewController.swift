@@ -26,7 +26,7 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         urlTextField.delegate = self
         
         // Jump directly into titleTextField when ItemView loads
-        titleTextField.becomeFirstResponder()
+        urlTextField.becomeFirstResponder()
     }
     
     // Dismiss keyboard at the same time as the view is dismissed

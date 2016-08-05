@@ -19,6 +19,12 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        if ItemController.sharedController.items.count == 0 {
+            navigationItem.leftBarButtonItem?.enabled = false
+        } else {
+            navigationItem.leftBarButtonItem?.enabled = true
+        }
+        
         tableView.reloadData()
     }
     
@@ -59,9 +65,9 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         
         // Calculate color gradient
         
-        // Set the color values (either here or up top) RED: [255, 69, 0] ORANGE: [255, 20, 147]
-        let colorTopValues: [CGFloat] = [30, 19, 50]
-        let colorBottomValues: [CGFloat] = [88, 25, 140]
+        // Set the color values (either here or up top) PINK: [255, 69, 0] ORANGE: [255, 20, 147]
+        let colorTopValues: [CGFloat] = [255, 20, 147]
+        let colorBottomValues: [CGFloat] = [255, 69, 0]
         
         // Take 2 values, find out which one is lower
         let topRedValue = colorTopValues[0]
@@ -71,9 +77,9 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         let topGreenValue = colorTopValues[2]
         let bottomGreenValue = colorBottomValues[2]
         
-        let lowerRed = whichNumberIsLower(topRedValue, secondValue: bottomRedValue)
-        let lowerBlue = whichNumberIsLower(topBlueValue, secondValue: bottomBlueValue)
-        let lowerGreen = whichNumberIsLower(topGreenValue, secondValue: bottomGreenValue)
+        let higherRed = whichNumberIsHigher(topRedValue, secondValue: bottomRedValue)
+        let higherBlue = whichNumberIsHigher(topBlueValue, secondValue: bottomBlueValue)
+        let higherGreen = whichNumberIsHigher(topGreenValue, secondValue: bottomGreenValue)
         
         // Subtract the two and find the absolute value to get the difference.
         let differenceRed = fabs(topRedValue - bottomRedValue)
@@ -88,9 +94,9 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
             divisor = CGFloat(numberOfItems - 1)
         }
         
-        let newRedValue = (lowerRed + CGFloat(indexPath.row) * (differenceRed / divisor)) / 255
-        let newBlueValue = (lowerBlue + CGFloat(indexPath.row) * (differenceBlue / divisor)) / 255
-        let newGreenValue = (lowerGreen + CGFloat(indexPath.row) * (differenceGreen / divisor)) / 255
+        let newRedValue = (higherRed - CGFloat(indexPath.row) * (differenceRed / divisor)) / 255
+        let newBlueValue = (higherBlue - CGFloat(indexPath.row) * (differenceBlue / divisor)) / 255
+        let newGreenValue = (higherGreen - CGFloat(indexPath.row) * (differenceGreen / divisor)) / 255
 
         // That value will be the new value that needs to be the RGB value to use
         print("Cell: \(indexPath.row)")
@@ -109,16 +115,19 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     }
     
     
-    func whichNumberIsLower(firstValue: CGFloat, secondValue: CGFloat) -> CGFloat {
-        var lowerNumber: CGFloat = 0
+    // Right now it figures out which value is lowest, and then adds the numberToAdd to that value. Thus, always stacks the lower value on top/first
+    // What it needs to do instead is find out if the higher value is on top or the lower value is on top. If the higher value is on top, it should subtract the numberToAdd from the higher value. If the lower value is on top it should add the numberToAdd to the lower value.
+    
+    func whichNumberIsHigher(firstValue: CGFloat, secondValue: CGFloat) -> CGFloat {
+        var higherNumber: CGFloat = 0
 
         if firstValue >= secondValue {
-            lowerNumber = secondValue
+            higherNumber = firstValue
         } else {
-            lowerNumber = firstValue
+            higherNumber = secondValue
         }
         
-        return lowerNumber
+        return higherNumber
     }
     
     
@@ -139,6 +148,13 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+        tableView.reloadData()
+        
+        if ItemController.sharedController.items.count == 0 {
+            navigationItem.leftBarButtonItem?.enabled = false
+        } else {
+            navigationItem.leftBarButtonItem?.enabled = true
         }
     }
     
