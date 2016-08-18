@@ -136,6 +136,16 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         return true
     }
     
+//    // Override to support rearranging the table view.
+//    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+//        let itemToMove = ItemController.sharedController.items[sourceIndexPath.row]
+//        ItemController.sharedController.removeItem(itemToMove)
+//        ItemController.sharedController.addItem(itemToMove)
+//        
+//        tableView.reloadData()
+//        
+//    }
+    
     
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -151,13 +161,14 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         }
         tableView.reloadData()
         
+        
+        
         if ItemController.sharedController.items.count == 0 {
             navigationItem.leftBarButtonItem?.enabled = false
         } else {
             navigationItem.leftBarButtonItem?.enabled = true
         }
     }
-    
     
     // MARK: - Safari View Controller
     
