@@ -10,50 +10,143 @@ import UIKit
 import SafariServices
 
 class ItemsTableViewController: UITableViewController, SFSafariViewControllerDelegate {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Use provided edit button
         navigationItem.leftBarButtonItem = editButtonItem()
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewWillAppear(animated)
+        
+        if ItemController.sharedController.items.count == 0 {
+            navigationItem.leftBarButtonItem?.enabled = false
+        } else {
+            navigationItem.leftBarButtonItem?.enabled = true
+        }
         
         tableView.reloadData()
     }
-
-
-
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Launch instructions
+        let launchedBefore = NSUserDefaults.standardUserDefaults().boolForKey("launchedBefore")
+        
+        if launchedBefore  {
+            print("Not first launch.")
+        }
+        else {
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("welcome")
+            print("First launch, setting NSUserDefault.")
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launchedBefore")
+            presentViewController(vc, animated: true, completion: nil)
+        }
+        
+    }
+    
+    
     // MARK: - Table view data source
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ItemController.sharedController.items.count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) as! ItemTableViewCell
-
+        
         let item = ItemController.sharedController.items[indexPath.row]
         
         cell.titleLabel.text = item.title
         cell.urlLabel.text = item.url
+        
+        
+        // Calculate color gradient
+        
+        // Set the color values (either here or up top) PINK: [255, 69, 0] ORANGE: [255, 20, 147]
+        let colorTopValues: [CGFloat] = [255, 20, 147]
+        let colorBottomValues: [CGFloat] = [255, 69, 0]
+        
+        // Take 2 values, find out which one is lower
+        let topRedValue = colorTopValues[0]
+        let bottomRedValue = colorBottomValues[0]
+        let topBlueValue = colorTopValues[1]
+        let bottomBlueValue = colorBottomValues[1]
+        let topGreenValue = colorTopValues[2]
+        let bottomGreenValue = colorBottomValues[2]
+        
+        let higherRed = whichNumberIsHigher(topRedValue, secondValue: bottomRedValue)
+        let higherBlue = whichNumberIsHigher(topBlueValue, secondValue: bottomBlueValue)
+        let higherGreen = whichNumberIsHigher(topGreenValue, secondValue: bottomGreenValue)
+        
+        // Subtract the two and find the absolute value to get the difference.
+        let differenceRed = fabs(topRedValue - bottomRedValue)
+        let differenceBlue = fabs(topBlueValue - bottomBlueValue)
+        let differenceGreen = fabs(topGreenValue - bottomGreenValue)
+        
+        // Divide that difference by (the number of items in the list - 1)
+        // Add (that value * the cellRow) to the lower of the two values and divide by 255
+        var divisor: CGFloat = 1
+        let numberOfItems = ItemController.sharedController.items.count
+        if numberOfItems > 1 {
+            divisor = CGFloat(numberOfItems - 1)
+        }
+        
+        let newRedValue = (higherRed - CGFloat(indexPath.row) * (differenceRed / divisor)) / 255
+        let newBlueValue = (higherBlue - CGFloat(indexPath.row) * (differenceBlue / divisor)) / 255
+        let newGreenValue = (higherGreen - CGFloat(indexPath.row) * (differenceGreen / divisor)) / 255
 
+        // That value will be the new value that needs to be the RGB value to use
+        print("Cell: \(indexPath.row)")
+        print("newRed: \(newRedValue)")
+        print("newRed: \(newBlueValue)")
+        print("newRed: \(newGreenValue)")
+        
+        // Set the cell bg color equal to the new RGB value
+        cell.coloredBoxView.backgroundColor = UIColor(red: newRedValue, green: newGreenValue, blue: newBlueValue, alpha: 1)
+        
+        if let bigLetter = item.title?.characters.first {
+            cell.bigLetterLabel.text = String(bigLetter)
+        }
+        
         return cell
     }
+    
+    
+    // Right now it figures out which value is lowest, and then adds the numberToAdd to that value. Thus, always stacks the lower value on top/first
+    // What it needs to do instead is find out if the higher value is on top or the lower value is on top. If the higher value is on top, it should subtract the numberToAdd from the higher value. If the lower value is on top it should add the numberToAdd to the lower value.
+    
+    func whichNumberIsHigher(firstValue: CGFloat, secondValue: CGFloat) -> CGFloat {
+        var higherNumber: CGFloat = 0
 
-
+        if firstValue >= secondValue {
+            higherNumber = firstValue
+        } else {
+            higherNumber = secondValue
+        }
+        
+        return higherNumber
+    }
+    
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-
-
+    
+//    // Override to support rearranging the table view.
+//    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+//        let itemToMove = ItemController.sharedController.items[sourceIndexPath.row]
+//        ItemController.sharedController.removeItem(itemToMove)
+//        ItemController.sharedController.addItem(itemToMove)
+//        
+//        tableView.reloadData()
+//        
+//    }
+    
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -65,32 +158,21 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-
-/*
-    // Rearranging the table view
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        }
+        tableView.reloadData()
         
-        // Specify which item to remove then insert when reordering - so data can coincide in the array
-        let itemToMove = items[fromIndexPath.row]
-        items.removeAtIndex(fromIndexPath.row)
-        items.insert(itemToMove, atIndex: toIndexPath.row)
-    
+        
+        
+        if ItemController.sharedController.items.count == 0 {
+            navigationItem.leftBarButtonItem?.enabled = false
+        } else {
+            navigationItem.leftBarButtonItem?.enabled = true
+        }
     }
-
-    // Conditional rearranging of the table view
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-*/
-
     
-    // View clicked cell in Safari View Controller
+    // MARK: - Safari View Controller
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        // Safari View Controller
         
         var url = ItemController.sharedController.items[indexPath.row].url
         
@@ -103,7 +185,6 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         safariVC.delegate = self
         
         self.presentViewController(safariVC, animated: true, completion: nil)
-        
     }
-
+    
 }
