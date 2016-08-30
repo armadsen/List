@@ -10,8 +10,6 @@ import UIKit
 
 class ItemViewController: UIViewController, UITextFieldDelegate {
     
-    var faviconURL = ""
-    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -47,7 +45,9 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         }
         
         // If the current field is Title, hide the keyboard
-        textField.resignFirstResponder()
+        if textField === titleTextField {
+            textField.resignFirstResponder()
+        }
         return true
     }
     
@@ -68,7 +68,6 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func saveButtonTapped(ender: UIBarButtonItem) {
         
-        // What happens if there is no text here? Well, the above methods prevent it, I think
         if let title = self.titleTextField.text, url = self.urlTextField.text {
             
             let newItem = Item(title: title, url: url)
