@@ -21,59 +21,56 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="61"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="44J-PZ-l0m" userLabel="Colored Box View">
-                                            <rect key="frame" x="8" y="8" width="45" height="45"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nMH-zt-5sJ">
+                                            <rect key="frame" x="8" y="8" width="107" height="45"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcX-Ak-Hbm" userLabel="Big Letter Label">
-                                                    <rect key="frame" x="13" y="5" width="19" height="36"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="44J-PZ-l0m" userLabel="Colored Box View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcX-Ak-Hbm" userLabel="Big Letter Label">
+                                                            <rect key="frame" x="13" y="5" width="19" height="36"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="8ae-Yu-OHI"/>
+                                                        <constraint firstAttribute="height" constant="45" id="RKk-Cv-q8K"/>
+                                                        <constraint firstAttribute="width" constant="45" id="YF8-UX-G4L"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="s5C-JJ-tbt"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="0.5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="w3F-4S-HNw">
+                                                    <rect key="frame" x="53" y="0.0" width="54" height="45"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKo-YS-uoc">
+                                                            <rect key="frame" x="0.0" y="0.0" width="54" height="28"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hd2-aC-1qj">
+                                                            <rect key="frame" x="0.0" y="28" width="33" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="GcX-Ak-Hbm" firstAttribute="centerX" secondItem="44J-PZ-l0m" secondAttribute="centerX" id="Piv-z1-QQJ"/>
-                                                <constraint firstItem="GcX-Ak-Hbm" firstAttribute="centerY" secondItem="44J-PZ-l0m" secondAttribute="centerY" id="V0w-il-IRM"/>
-                                                <constraint firstAttribute="width" constant="45" id="d6A-xn-aQh"/>
-                                                <constraint firstAttribute="height" constant="45" id="x4D-ur-foi"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="0.5"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKo-YS-uoc">
-                                            <rect key="frame" x="61" y="8" width="54" height="27"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hd2-aC-1qj">
-                                            <rect key="frame" x="62" y="36" width="33" height="17"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="17" id="QOo-QA-M2c"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="PKo-YS-uoc" firstAttribute="top" secondItem="ANL-6X-iFm" secondAttribute="topMargin" id="4Ie-2N-jdm"/>
-                                        <constraint firstItem="hd2-aC-1qj" firstAttribute="top" secondItem="ANL-6X-iFm" secondAttribute="topMargin" constant="27" id="DZs-pe-eP9"/>
-                                        <constraint firstItem="PKo-YS-uoc" firstAttribute="leading" secondItem="hd2-aC-1qj" secondAttribute="leading" constant="-1" id="EYr-U6-1Gx"/>
-                                        <constraint firstItem="44J-PZ-l0m" firstAttribute="leading" secondItem="ANL-6X-iFm" secondAttribute="leadingMargin" id="KOq-Hg-ABU"/>
-                                        <constraint firstItem="44J-PZ-l0m" firstAttribute="top" secondItem="ANL-6X-iFm" secondAttribute="topMargin" id="T7r-cf-DtH"/>
-                                        <constraint firstItem="PKo-YS-uoc" firstAttribute="leading" secondItem="44J-PZ-l0m" secondAttribute="trailing" constant="8" symbolic="YES" id="hZu-HV-Ne4"/>
-                                        <constraint firstItem="hd2-aC-1qj" firstAttribute="top" secondItem="PKo-YS-uoc" secondAttribute="bottom" constant="1" id="mtf-l9-Pu7"/>
+                                        <constraint firstAttribute="topMargin" secondItem="nMH-zt-5sJ" secondAttribute="top" id="d2N-bi-wyM"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="nMH-zt-5sJ" secondAttribute="leading" id="xwo-b8-GLb"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="DZs-pe-eP9"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="bigLetterLabel" destination="GcX-Ak-Hbm" id="Zxq-up-H22"/>
