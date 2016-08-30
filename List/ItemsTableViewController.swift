@@ -65,29 +65,24 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         
     // Calculate color gradient
         
-        // Set the color values (either here or up top) PINK: [255, 20, 147] ORANGE: [255, 69, 0]
-        let colorTopValues: [CGFloat] = [255, 20, 147]
-        let colorBottomValues: [CGFloat] = [255, 69, 0]
+        // Set the color values (PINK: [255, 20, 147] ORANGE: [255, 69, 0])
+        let colorTopValues: [CGFloat] = [255, 20, 147] // R G B
+        let colorBottomValues: [CGFloat] = [255, 69, 0] // R G B
         
-        // Take 2 values, find out which one is lower
-        let topRedValue = colorTopValues[0]
-        let bottomRedValue = colorBottomValues[0]
-        let topBlueValue = colorTopValues[1]
-        let bottomBlueValue = colorBottomValues[1]
-        let topGreenValue = colorTopValues[2]
-        let bottomGreenValue = colorBottomValues[2]
-        
-        let higherRed = whichNumberIsHigher(topRedValue, secondValue: bottomRedValue)
-        let higherBlue = whichNumberIsHigher(topBlueValue, secondValue: bottomBlueValue)
-        let higherGreen = whichNumberIsHigher(topGreenValue, secondValue: bottomGreenValue)
+        // Take each RGB value, find out which one is lower
+        let higherRed = whichNumberIsHigher(colorTopValues[0], secondValue: colorBottomValues[0])
+        let higherBlue = whichNumberIsHigher(colorTopValues[1], secondValue: colorBottomValues[1])
+        let higherGreen = whichNumberIsHigher(colorTopValues[2], secondValue: colorBottomValues[2])
         
         // Subtract the two and find the absolute value to get the difference.
-        let differenceRed = fabs(topRedValue - bottomRedValue)
-        let differenceBlue = fabs(topBlueValue - bottomBlueValue)
-        let differenceGreen = fabs(topGreenValue - bottomGreenValue)
+        let differenceRed = fabs(colorTopValues[0] - colorBottomValues[0])
+        let differenceBlue = fabs(colorTopValues[1] - colorBottomValues[1])
+        let differenceGreen = fabs(colorTopValues[2] - colorBottomValues[2])
         
         // Divide that difference by (the number of items in the list - 1)
         // Add (that value * the cellRow) to the lower of the two values and divide by 255
+        // That value will be the new value that needs to be the RGB value to use
+
         var divisor: CGFloat = 1
         let numberOfItems = ItemController.sharedController.items.count
         if numberOfItems > 1 {
@@ -97,17 +92,12 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         let newRedValue = (higherRed - CGFloat(indexPath.row) * (differenceRed / divisor)) / 255
         let newBlueValue = (higherBlue - CGFloat(indexPath.row) * (differenceBlue / divisor)) / 255
         let newGreenValue = (higherGreen - CGFloat(indexPath.row) * (differenceGreen / divisor)) / 255
-
-        // That value will be the new value that needs to be the RGB value to use
-        print("Cell: \(indexPath.row)")
-        print("newRed: \(newRedValue)")
-        print("newRed: \(newBlueValue)")
-        print("newRed: \(newGreenValue)")
         
-        // Set the cell bg color equal to the new RGB value
+        // Set the bg color for the coloredView in each cell equal to the calculated RGB value
         cell.coloredBoxView.backgroundColor = UIColor(red: newRedValue, green: newGreenValue, blue: newBlueValue, alpha: 1)
+    
         
-        // Set the big letter as the first letter in Title, else first letter in URL
+    // Set the big letter as the first letter in Title, else first letter in URL
         if let bigLetter = item.title?.characters.first {
             cell.bigLetterLabel.text = String(bigLetter).capitalizedString
         } else if let bigLetter = item.url?.characters.first {
@@ -118,9 +108,7 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     }
     
     
-    // Right now it figures out which value is lowest, and then adds the numberToAdd to that value. Thus, always stacks the lower value on top/first
-    // What it needs to do instead is find out if the higher value is on top or the lower value is on top. If the higher value is on top, it should subtract the numberToAdd from the higher value. If the lower value is on top it should add the numberToAdd to the lower value.
-    
+    // Right now it figures out which value is lowest, and then adds the numberToAdd to that value. Thus, always stacks the lower value on top/first. What it needs to do instead is find out if the higher value is on top or the lower value is on top. If the higher value is on top, it should subtract the numberToAdd from the higher value. If the lower value is on top it should add the numberToAdd to the lower value.
     func whichNumberIsHigher(firstValue: CGFloat, secondValue: CGFloat) -> CGFloat {
         var higherNumber: CGFloat = 0
 

@@ -39,21 +39,22 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
-        // If the current field is urlTextField, move to title field
+        // If urlTextField is current field and "return" button is tapped, move to title field
         if textField === urlTextField {
             titleTextField.becomeFirstResponder()
         }
         
-        // If the current field is Title, hide the keyboard
+        // If titleTextField is current field and "return" button is tapped, hide keyboard
         if textField === titleTextField {
             textField.resignFirstResponder()
         }
+        
         return true
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        // Allow save as soon as text is entered
+        // Allow Save as soon as text changed
         saveButton.enabled = true
         
         return true
