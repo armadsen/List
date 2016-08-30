@@ -63,9 +63,9 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         cell.urlLabel.text = item.url
         
         
-        // Calculate color gradient
+    // Calculate color gradient
         
-        // Set the color values (either here or up top) PINK: [255, 69, 0] ORANGE: [255, 20, 147]
+        // Set the color values (either here or up top) PINK: [255, 20, 147] ORANGE: [255, 69, 0]
         let colorTopValues: [CGFloat] = [255, 20, 147]
         let colorBottomValues: [CGFloat] = [255, 69, 0]
         
@@ -107,8 +107,11 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         // Set the cell bg color equal to the new RGB value
         cell.coloredBoxView.backgroundColor = UIColor(red: newRedValue, green: newGreenValue, blue: newBlueValue, alpha: 1)
         
+        // Set the big letter as the first letter in Title, else first letter in URL
         if let bigLetter = item.title?.characters.first {
-            cell.bigLetterLabel.text = String(bigLetter)
+            cell.bigLetterLabel.text = String(bigLetter).capitalizedString
+        } else if let bigLetter = item.url?.characters.first {
+            cell.bigLetterLabel.text = String(bigLetter).capitalizedString
         }
         
         return cell
@@ -131,11 +134,6 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     }
     
     
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
 //    // Override to support rearranging the table view.
 //    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
 //        let itemToMove = ItemController.sharedController.items[sourceIndexPath.row]
@@ -146,6 +144,10 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
 //        
 //    }
     
+    // Override to support conditional editing of the table view.
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
     
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -160,8 +162,6 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
         tableView.reloadData()
-        
-        
         
         if ItemController.sharedController.items.count == 0 {
             navigationItem.leftBarButtonItem?.enabled = false
