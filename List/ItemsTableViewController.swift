@@ -107,8 +107,11 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         // Set the cell bg color equal to the new RGB value
         cell.coloredBoxView.backgroundColor = UIColor(red: newRedValue, green: newGreenValue, blue: newBlueValue, alpha: 1)
         
+        // Set the big letter as the first letter in Title, else first letter in URL
         if let bigLetter = item.title?.characters.first {
-            cell.bigLetterLabel.text = String(bigLetter)
+            cell.bigLetterLabel.text = String(bigLetter).capitalizedString
+        } else if let bigLetter = item.url?.characters.first {
+            cell.bigLetterLabel.text = String(bigLetter).capitalizedString
         }
         
         return cell
