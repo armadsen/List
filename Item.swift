@@ -14,9 +14,9 @@ class Item: NSManagedObject {
 
     convenience init(title: String, url: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
         
-        let entity = NSEntityDescription.entityForName("Item", inManagedObjectContext: context)!
+        let entity = NSEntityDescription.entity(forEntityName: "Item", in: context)!
         
-        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        self.init(entity: entity, insertInto: context)
         
         self.title = title
         self.url = url

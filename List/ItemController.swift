@@ -15,21 +15,22 @@ class ItemController  {
     
     var items: [Item] {
         
-        let request = NSFetchRequest(entityName: "Item")
+        // Added ": NSFetchRequest<NSFetchRequestResult>"
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Item")
         
         do {
-            return try Stack.sharedStack.managedObjectContext.executeFetchRequest(request) as! [Item]
+            return try Stack.sharedStack.managedObjectContext.fetch(request) as! [Item]
         } catch {
             return []
         }
     }
     
-    func addItem(item: Item) {
+    func addItem(_ item: Item) {
         saveToPersistentStorage()
     }
     
-    func removeItem(item: Item) {
-        item.managedObjectContext?.deleteObject(item)
+    func removeItem(_ item: Item) {
+        item.managedObjectContext?.delete(item)
         saveToPersistentStorage()
     }
     

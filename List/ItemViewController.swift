@@ -23,21 +23,21 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         titleTextField.delegate = self
         urlTextField.delegate = self
         
-        saveButton.enabled = false
+        saveButton.isEnabled = false
         
         // Jump directly into urlTextField when ItemView loads
         urlTextField.becomeFirstResponder()
     }
     
     // Dismiss keyboard when the view is dismissed
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.view .endEditing(true)
     }
     
     
     // MARK: - UITextFieldDelegate
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         // If urlTextField is current field and "return" button is tapped, move to title field
         if textField === urlTextField {
@@ -52,10 +52,10 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         // Allow Save as soon as text changed
-        saveButton.enabled = true
+        saveButton.isEnabled = true
         
         return true
     }
@@ -63,18 +63,18 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Navigation
     
-    @IBAction func cancelButtonTapped(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelButtonTapped(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func saveButtonTapped(ender: UIBarButtonItem) {
+    @IBAction func saveButtonTapped(_ ender: UIBarButtonItem) {
         
-        if let title = self.titleTextField.text, url = self.urlTextField.text {
+        if let title = self.titleTextField.text, let url = self.urlTextField.text {
             
             let newItem = Item(title: title, url: url)
             ItemController.sharedController.addItem(newItem)
             self.item = newItem
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
     }
     
