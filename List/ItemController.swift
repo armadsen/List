@@ -20,7 +20,6 @@ class ItemController  {
         
         do {
             let lists = try Stack.sharedStack.managedObjectContext.fetch(request) as! [List]
-            // ?Abe? I needed to switch to .first
             return lists.first
         } catch {
             return nil

@@ -36,6 +36,8 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
             
             // ? Okay to use "" if name is optional?
             theList = List(name: "", listID: 1)
+            // I feel like I need to save this, but I'm not sure
+            ItemController.sharedController.saveToPersistentStorage()
             
         }
         
@@ -82,43 +84,10 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         cell.titleLabel.text = item.title
         cell.urlLabel.text = item.url
         
+        // Set the bg color for the coloredView in each cell equal to the calculated RGB value
         let (red, green, blue) = calculateColorGradient(row: CGFloat(indexPath.row))
         cell.coloredBoxView.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
-
-    // Calculate color gradient
         
-        // Set the color values (PINK: [255, 20, 147] ORANGE: [255, 69, 0])
-        let colorTopValues: [CGFloat] = [255, 20, 147] // R G B
-        let colorBottomValues: [CGFloat] = [255, 69, 0] // R G B
-        
-        // Take each RGB value, find out which one is lower
-        let higherRed = whichNumberIsHigher(colorTopValues[0], secondValue: colorBottomValues[0])
-        let higherBlue = whichNumberIsHigher(colorTopValues[1], secondValue: colorBottomValues[1])
-        let higherGreen = whichNumberIsHigher(colorTopValues[2], secondValue: colorBottomValues[2])
-        
-        // Subtract the two and find the absolute value to get the difference.
-        let differenceRed = fabs(colorTopValues[0] - colorBottomValues[0])
-        let differenceBlue = fabs(colorTopValues[1] - colorBottomValues[1])
-        let differenceGreen = fabs(colorTopValues[2] - colorBottomValues[2])
-        
-        // Divide that difference by (the number of items in the list - 1)
-        // Add (that value * the cellRow) to the lower of the two values and divide by 255
-        // That value will be the new value that needs to be the RGB value to use
-
-        var divisor: CGFloat = 1
-        // ?Abe? Also here
-        let numberOfItems = (theList?.items?.count)!
-        if numberOfItems > 1 {
-            divisor = CGFloat(numberOfItems - 1)
-        }
-        
-        let newRedValue = (higherRed - CGFloat((indexPath as NSIndexPath).row) * (differenceRed / divisor)) / 255
-        let newBlueValue = (higherBlue - CGFloat((indexPath as NSIndexPath).row) * (differenceBlue / divisor)) / 255
-        let newGreenValue = (higherGreen - CGFloat((indexPath as NSIndexPath).row) * (differenceGreen / divisor)) / 255
-        
-        // Set the bg color for the coloredView in each cell equal to the calculated RGB value
-        cell.coloredBoxView.backgroundColor = UIColor(red: newRedValue, green: newGreenValue, blue: newBlueValue, alpha: 1)
-    
         
     // Set the big letter as the first letter in Title, else first letter in URL
         if let bigLetter = item.title?.characters.first {
@@ -152,7 +121,12 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         tableView.reloadData()
         
         // ?Abe? Also here
-        if (theList?.items?.count)! == 0 {
+        
+        if theList?.items?.count == 0 {
+            print("zero")
+        }
+        
+        if theList?.items?.count == 0 {
             navigationItem.leftBarButtonItem?.isEnabled = false
         } else {
             navigationItem.leftBarButtonItem?.isEnabled = true
@@ -166,7 +140,8 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         
 //        var url = ItemController.sharedController.items[(indexPath as NSIndexPath).row].url
         // ?Abe? Also here
-        var url = (theList?.items?[(indexPath as NSIndexPath).row] as AnyObject).url!!
+        
+        var url = (theList?.items?[indexPath.row] as AnyObject).url
         
         if url.hasPrefix("http://") == false && url.hasPrefix("https://") == false {
             url = "http://" + url
@@ -209,8 +184,8 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         }
         
         let newRedValue = (higherRed - row * (differenceRed / divisor)) / 255
-        let newBlueValue = (higherBlue - row * (differenceBlue / divisor)) / 255
         let newGreenValue = (higherGreen - row * (differenceGreen / divisor)) / 255
+        let newBlueValue = (higherBlue - row * (differenceBlue / divisor)) / 255
         
         return (newRedValue, newGreenValue, newBlueValue)
     }
