@@ -11,6 +11,8 @@ import SafariServices
 
 class ItemsTableViewController: UITableViewController, SFSafariViewControllerDelegate {
     
+    var theList = ItemController.sharedController.list
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = editButtonItem
@@ -19,10 +21,22 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if ItemController.sharedController.items.count == 0 {
+        // ?Abe? Not sure if / why these should be optional
+        if theList?.items?.count == 0 {
             navigationItem.leftBarButtonItem?.isEnabled = false
         } else {
             navigationItem.leftBarButtonItem?.isEnabled = true
+        }
+        
+//        if theList == nil {
+//            theList = newList // Create the new list
+//        }
+        
+        if theList == nil {
+            
+            // ? Okay to use "" if name is optional?
+            theList = List(name: "", listID: 1)
+            
         }
         
         tableView.reloadData()
@@ -31,11 +45,13 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        // ?Abe? This vs. above to create theList
         // Launch instructions
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         
         if launchedBefore  {
             print("Not first launch.")
+            //assign value by fetch
         }
         else {
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -51,13 +67,15 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ItemController.sharedController.items.count
+        // ?Abe? Also here
+        return (theList?.items?.count)!
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemTableViewCell
         
-        let item = ItemController.sharedController.items[(indexPath as NSIndexPath).row]
+        // ?Abe? Also here + force cast as Item
+        let item = theList?.items?[(indexPath as NSIndexPath).row] as! Item
         
         cell.titleLabel.text = item.title
         cell.urlLabel.text = item.url
@@ -84,7 +102,8 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         // That value will be the new value that needs to be the RGB value to use
 
         var divisor: CGFloat = 1
-        let numberOfItems = ItemController.sharedController.items.count
+        // ?Abe? Also here
+        let numberOfItems = (theList?.items?.count)!
         if numberOfItems > 1 {
             divisor = CGFloat(numberOfItems - 1)
         }
@@ -141,7 +160,8 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let item = ItemController.sharedController.items[(indexPath as NSIndexPath).row]
+            // ?Abe? Also here + force cast as Item
+            let item = theList?.items?[(indexPath as NSIndexPath).row] as! Item
             
             ItemController.sharedController.removeItem(item)
             
@@ -151,7 +171,8 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         }
         tableView.reloadData()
         
-        if ItemController.sharedController.items.count == 0 {
+        // ?Abe? Also here
+        if (theList?.items?.count)! == 0 {
             navigationItem.leftBarButtonItem?.isEnabled = false
         } else {
             navigationItem.leftBarButtonItem?.isEnabled = true
@@ -162,13 +183,15 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var url = ItemController.sharedController.items[(indexPath as NSIndexPath).row].url
+//        var url = ItemController.sharedController.items[(indexPath as NSIndexPath).row].url
+        // ?Abe? Also here
+        var url = (theList?.items?[(indexPath as NSIndexPath).row] as AnyObject).url!!
         
-        if url!.hasPrefix("http://") == false && url!.hasPrefix("https://") == false {
-            url = "http://" + url!
+        if url.hasPrefix("http://") == false && url.hasPrefix("https://") == false {
+            url = "http://" + url
         }
         
-        let safariVC = SFSafariViewController(url: URL(string: url!)!)
+        let safariVC = SFSafariViewController(url: URL(string: url)!)
         
         safariVC.delegate = self
         

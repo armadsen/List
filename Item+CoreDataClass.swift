@@ -1,16 +1,15 @@
 //
-//  Item.swift
+//  Item+CoreDataClass.swift
 //  List
 //
-//  Created by Zebra on 5/24/16.
+//  Created by Zebra on 10/13/16.
 //  Copyright © 2016 BradyMower. All rights reserved.
 //
 
 import Foundation
 import CoreData
 
-
-class Item: NSManagedObject {
+public class Item: NSManagedObject {
 
     convenience init(title: String, url: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
         
@@ -21,4 +20,5 @@ class Item: NSManagedObject {
         self.title = title
         self.url = url
     }
+    
 }
