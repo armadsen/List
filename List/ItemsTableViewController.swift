@@ -49,16 +49,14 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         // Launch instructions
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         
-<<<<<<< HEAD
+
         // Checks for first launch, and executes code if not first launch. If first launch, shows launch screen and sets UserDefaults to save status of first launch.
-        if launchedBefore == false {
-=======
+
         if launchedBefore  {
             print("Not first launch.")
             //assign value by fetch
         }
         else {
->>>>>>> master
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "welcome")
             UserDefaults.standard.set(true, forKey: "launchedBefore")
@@ -78,22 +76,15 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemTableViewCell
         
-<<<<<<< HEAD
-        let item = ItemController.sharedController.items[indexPath.row]
-=======
         // ?Abe? Also here + force cast as Item
         let item = theList?.items?[(indexPath as NSIndexPath).row] as! Item
->>>>>>> master
         
         cell.titleLabel.text = item.title
         cell.urlLabel.text = item.url
         
         let (red, green, blue) = calculateColorGradient(row: CGFloat(indexPath.row))
         cell.coloredBoxView.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
-        
-<<<<<<< HEAD
-        // Set the big letter as the first letter in Title, else first letter in URL
-=======
+
     // Calculate color gradient
         
         // Set the color values (PINK: [255, 20, 147] ORANGE: [255, 69, 0])
@@ -130,7 +121,6 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     
         
     // Set the big letter as the first letter in Title, else first letter in URL
->>>>>>> master
         if let bigLetter = item.title?.characters.first {
             cell.bigLetterLabel.text = String(bigLetter).capitalized
         } else if let bigLetter = item.url?.characters.first {
@@ -212,7 +202,8 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         // That value will be the new value that needs to be the RGB value to use
         
         var divisor: CGFloat = 1
-        let numberOfItems = ItemController.sharedController.items.count
+        // ?Abe? Also here
+        let numberOfItems = (theList?.items?.count)!
         if numberOfItems > 1 {
             divisor = CGFloat(numberOfItems - 1)
         }
@@ -236,6 +227,4 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         
         return higherNumber
     }
-    
-    
 }
