@@ -13,17 +13,32 @@ class ItemController  {
     
     static let sharedController = ItemController()
     
-    var items: [Item] {
+    var list: List? {
         
         // Added ": NSFetchRequest<NSFetchRequestResult>"
-        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Item")
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "List")
         
         do {
-            return try Stack.sharedStack.managedObjectContext.fetch(request) as! [Item]
+            let lists = try Stack.sharedStack.managedObjectContext.fetch(request) as! [List]
+            // ?Abe? I needed to switch to .first
+            return lists.first
         } catch {
-            return []
+            return nil
         }
+        
     }
+    
+//    var items: [Item] {
+//        
+//        // Added ": NSFetchRequest<NSFetchRequestResult>"
+//        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Item")
+//        
+//        do {
+//            return try Stack.sharedStack.managedObjectContext.fetch(request) as! [Item]
+//        } catch {
+//            return []
+//        }
+//    }
     
     func addItem(_ item: Item) {
         saveToPersistentStorage()

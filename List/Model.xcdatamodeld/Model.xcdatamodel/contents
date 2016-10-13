@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16A323" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16A323" minimumToolsVersion="Xcode 7.0" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Item" representedClassName=".Item" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="toList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="toItems" inverseEntity="List" syncable="YES"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="items" inverseEntity="List" syncable="YES"/>
     </entity>
-    <entity name="List" syncable="YES">
-        <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="toItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="toList" inverseEntity="Item" syncable="YES"/>
+    <entity name="List" representedClassName=".List" syncable="YES">
+        <attribute name="listID" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Item" inverseName="list" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
         <element name="Item" positionX="-18" positionY="36" width="128" height="90"/>
-        <element name="List" positionX="-351" positionY="-129" width="128" height="73"/>
+        <element name="List" positionX="-351" positionY="-129" width="128" height="90"/>
     </elements>
 </model>
