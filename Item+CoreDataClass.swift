@@ -11,7 +11,7 @@ import CoreData
 
 public class Item: NSManagedObject {
 
-    convenience init(title: String, url: String, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(title: String, url: String, context: NSManagedObjectContext = Stack.context) {
         
         let entity = NSEntityDescription.entity(forEntityName: "Item", in: context)!
         

@@ -19,8 +19,7 @@ class ItemController  {
         let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "List")
         
         do {
-            let lists = try Stack.sharedStack.managedObjectContext.fetch(request) as! [List]
-            // ?Abe? I needed to switch to .first
+            let lists = try Stack.context.fetch(request) as! [List]
             return lists.first
         } catch {
             return nil
@@ -52,7 +51,7 @@ class ItemController  {
     func saveToPersistentStorage() {
      
         do {
-            try Stack.sharedStack.managedObjectContext.save()
+            try Stack.context.save()
         } catch {
             print("Error saving Managed Object Context. Items not saved")
         }

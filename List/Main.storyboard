@@ -10,26 +10,24 @@
         <!--List-->
         <scene sceneID="SRW-K1-KyU">
             <objects>
-                <tableViewController id="b0a-Ul-YfR" customClass="ItemsTableViewController" customModule="List_old" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="b0a-Ul-YfR" customClass="ItemsTableViewController" customModule="List" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" id="xc5-BO-RCm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ItemCell" id="9v9-pk-tbr" customClass="ItemTableViewCell" customModule="List_old" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ItemCell" id="9v9-pk-tbr" customClass="ItemTableViewCell" customModule="List" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="375" height="62"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9v9-pk-tbr" id="ANL-6X-iFm">
-                                    <frame key="frameInset" width="375" height="61"/>
+                                    <frame key="frameInset" width="375" height="61.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nMH-zt-5sJ">
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="44J-PZ-l0m" userLabel="Colored Box View">
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcX-Ak-Hbm" userLabel="Big Letter Label">
-                                                            <frame key="frameInset" minX="13" minY="5" width="19" height="36"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcX-Ak-Hbm" userLabel="Big Letter Label">
                                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -37,10 +35,10 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="8ae-Yu-OHI"/>
+                                                        <constraint firstItem="GcX-Ak-Hbm" firstAttribute="centerX" secondItem="44J-PZ-l0m" secondAttribute="centerX" id="03T-uY-E0a"/>
+                                                        <constraint firstItem="GcX-Ak-Hbm" firstAttribute="centerY" secondItem="44J-PZ-l0m" secondAttribute="centerY" id="7c1-O1-iV2"/>
                                                         <constraint firstAttribute="height" constant="45" id="RKk-Cv-q8K"/>
                                                         <constraint firstAttribute="width" constant="45" id="YF8-UX-G4L"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="s5C-JJ-tbt"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -98,7 +96,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="q0f-HX-9jY">
             <objects>
-                <viewController storyboardIdentifier="welcome" id="kAP-Mo-UXr" customClass="WelcomeViewController" customModule="List_old" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="welcome" id="kAP-Mo-UXr" customClass="WelcomeViewController" customModule="List" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Eqb-ge-js8"/>
                         <viewControllerLayoutGuide type="bottom" id="0jR-E5-yya"/>
@@ -179,7 +177,7 @@
         <!--New Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ItemViewController" customModule="List_old" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ItemViewController" customModule="List" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>

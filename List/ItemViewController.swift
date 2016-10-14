@@ -69,10 +69,18 @@ class ItemViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func saveButtonTapped(_ ender: UIBarButtonItem) {
         
+        let list = ItemController.sharedController.list
+        
         if let title = self.titleTextField.text, let url = self.urlTextField.text {
             
             let newItem = Item(title: title, url: url)
+            
+            // ??? Not sure if I'm doing this correctly
+            newItem.list = list
+            list?.addToItems(newItem)
+            
             ItemController.sharedController.addItem(newItem)
+            
             self.item = newItem
             dismiss(animated: true, completion: nil)
         }
