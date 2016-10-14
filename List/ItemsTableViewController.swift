@@ -21,7 +21,7 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // ?Abe? Not sure if / why these should be optional
+        // ??? Not sure if / why these should be optional
         if theList?.items?.count == 0 {
             navigationItem.leftBarButtonItem?.isEnabled = false
         } else {
@@ -46,7 +46,7 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // ?Abe? This vs. above to create theList
+        // ??? This vs. above to create theList
         // Launch instructions
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         
@@ -70,14 +70,14 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // ?Abe? Also here
+        // ??? Also here
         return (theList?.items?.count)!
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemTableViewCell
         
-        // ?Abe? Also here + force cast as Item
+        // ??? Also here + force cast as Item
         let item = theList?.items?[(indexPath as NSIndexPath).row] as! Item
         
         cell.titleLabel.text = item.title
@@ -108,7 +108,7 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            // ?Abe? Also here + force cast as Item
+            // ??? Also here + force cast as Item
             let item = theList?.items?[(indexPath as NSIndexPath).row] as! Item
             
             ItemController.sharedController.removeItem(item)
@@ -119,7 +119,7 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         }
         tableView.reloadData()
         
-        // ?Abe? Also here
+        // ??? Also here
         
         if theList?.items?.count == 0 {
             print("zero")
@@ -137,7 +137,7 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // ?Abe? Also here
+        // ??? Also here
         var url = (theList?.items?[indexPath.row] as! Item).url
         
         if url?.hasPrefix("http://") == false && url?.hasPrefix("https://") == false {
@@ -174,7 +174,7 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         // That value will be the new value that needs to be the RGB value to use
         
         var divisor: CGFloat = 1
-        // ?Abe? Also here
+        // ??? Also here
         let numberOfItems = (theList?.items?.count)!
         if numberOfItems > 1 {
             divisor = CGFloat(numberOfItems - 1)

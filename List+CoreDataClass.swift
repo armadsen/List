@@ -12,7 +12,7 @@ import CoreData
 public class List: NSManagedObject {
 
     // ? Needed to use type NSNumber instead of Int16
-    convenience init(name: String, listID: NSNumber, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init(name: String, listID: NSNumber, context: NSManagedObjectContext = Stack.context) {
         
         let entity = NSEntityDescription.entity(forEntityName: "List", in: context)!
         
