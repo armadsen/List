@@ -28,10 +28,6 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
             navigationItem.leftBarButtonItem?.isEnabled = true
         }
         
-//        if theList == nil {
-//            theList = newList // Create the new list
-//        }
-        
         if theList == nil {
             
             // ? Okay to use "" if name is optional?
@@ -42,6 +38,9 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
         }
         
         tableView.reloadData()
+        
+        print("The list is: \(theList)")
+        print("These are the items: \(theList?.items)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -138,16 +137,14 @@ class ItemsTableViewController: UITableViewController, SFSafariViewControllerDel
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        var url = ItemController.sharedController.items[(indexPath as NSIndexPath).row].url
         // ?Abe? Also here
+        var url = (theList?.items?[indexPath.row] as! Item).url
         
-        var url = (theList?.items?[indexPath.row] as AnyObject).url
-        
-        if url.hasPrefix("http://") == false && url.hasPrefix("https://") == false {
-            url = "http://" + url
+        if url?.hasPrefix("http://") == false && url?.hasPrefix("https://") == false {
+            url = "http://" + url!
         }
         
-        let safariVC = SFSafariViewController(url: URL(string: url)!)
+        let safariVC = SFSafariViewController(url: URL(string: url!)!)
         
         safariVC.delegate = self
         
