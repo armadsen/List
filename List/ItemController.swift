@@ -16,10 +16,10 @@ class ItemController  {
     var list: List? {
         
         // Added ": NSFetchRequest<NSFetchRequestResult>"
-        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "List")
+        let request: NSFetchRequest<List> = List.fetchRequest()
         
         do {
-            let lists = try Stack.context.fetch(request) as! [List]
+            let lists = try Stack.context.fetch(request)
             return lists.first
         } catch {
             return nil
